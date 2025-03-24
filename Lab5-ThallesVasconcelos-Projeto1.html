@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <title>Gráfico de Chuva</title>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom);
+
+    let data = [
+      ['2013', 280.0],
+      ['2014', 404.6],
+      ['2015', 386.7],
+      ['2016', 295.0],
+      ['2017', 211.5],
+      ['2018', 764.8],
+      ['2019', 497.9],
+      ['2020', 591.3],
+      ['2021', 388.5],
+      ['2022', 938.6],
+      ['2023', 376.6]
+    ];
+
+    let option = {
+      title: {
+        text: 'Volume de Chuva Acumulada na Fazenda Carnaúba por Ano',
+        left: 'center',
+        textStyle: {
+          color: '#555',
+          fontSize: 18
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+          let dataPoint = params[0]; 
+          return `${dataPoint.axisValue}: <b>${dataPoint.data} mm</b>`; 
+        },
+        backgroundColor: 'rgba(50, 50, 50, 0.7)',
+        textStyle: {
+          color: '#fff'
+        }
+      },
+      xAxis: {
+        type: 'category', 
+        data: data.map(item => item[0]),
+        axisLine: {
+          lineStyle: {
+            color: '#777'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          lineStyle: {
+            color: '#555'
+          }
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dashed',
+            color: '#ddd'
+          }
+        }
+      },
+      grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '15%',
+        containLabel: true
+      },
+      dataZoom: [
+        {
+          type: 'slider', 
+          start: 0, 
+          end: 100
+        },
+        {
+          type: 'inside' 
+        }
+      ],
+      series: [
+        {
+          name: 'Volume de Chuva',
+          type: 'line',
+          data: data.map(item => item[1]),
+          smooth: true, 
+          lineStyle: {
+            color: '#007bff',
+            width: 2
+          },
+          itemStyle: {
+            color: '#007bff'
+          },
+          markPoint: {
+            data: [
+              { type: 'max', name: 'Máximo', itemStyle: { color: 'red' }, symbolSize: 70 },
+              { type: 'min', name: 'Mínimo', itemStyle: { color: 'blue' }, symbolSize: 70 }
+            ],
+            label: {
+              fontSize: 14,
+              fontWeight: 'bold'
+            }
+          }
+
+        }
+      ]
+    };
+
+    myChart.setOption(option);
+  </script>
+</body>
+</html>
