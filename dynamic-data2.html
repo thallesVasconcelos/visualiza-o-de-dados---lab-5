@@ -1,121 +1,119 @@
-<!--
-	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=dynamic-data2&code=DYUwLgBAJghmMQLwQNoCgKa5lByATAAwCMAzLgDQT4AchAuhRtlnkcQCyUQeEcUA2RsxaoCJAKzdSNARQDsw0TnHEB3fAE4JS5WxLyNxYhR1NlY9jW7yB_GrtH7im7h03yKmxy31FuEpompD7YfsTSNDSmoazi-PjcmjKCsSpE-ORUpLap5iz0aAD2AA5gAJZFAHZIEADezBVgoABc9SIQYCAAHmBtuABqRcAArgC2INCTAMYAFiMAbggw0-MjwDCwEFUIAGIwAF4gVVsAwjAATjsAXwBGCCVFFxAwVUW4zAC--WBFwxUlNoNbBgC7lADm4JAF36MG65QAzpQOgAzJ5jOBdGEQFEjKrTCrVCAAChKlxgYwRAEp2qIyRcKQjavTGSgGABuDqYC7gEZXElcrAsykAOiWoxAKGI9AgAGpBZgAEQQMZjRWCqmc7DfDpwxEABSK5SqWKBgte5QxhKqbRRMGACJAHU-X3yzG6AEF4QizSCAJ4lED9CoTZHYBElYDlMAAGWNQdpLARsyKAHdbfbHc7Xcw_V7Eb6sGAAwncOKRiAw1hbkU8bALn6AOIwQGoQhUXCEACkuB8EajsfjhfDKfTOMzTu1OcwjrBIB9qA6wJYOwm_X2AGtJgAROAwKv-wP9KNVSv5EdpgDKfrGNeAGYdIHPWFg8Dar5g2cwhU-nMdYAASRNaFxWJXF8WtEkaWXNFnmJJZnnKWpCHZCAkIAHggCRUPKWVZWgjoPxFZNyhRMBiU1Qi9xFEoRmTYkGROIoxl3eAKMozAXUwMY_VOWZLjAYjwAAeTKSoqmJZcZ2hcp5zadBRCklgP3fPdBS4rBCk4yjvggYhCAMzUgA
-	⚠ Please be aware that this chart is not an official demo of Apache ECharts but is made by user-generated code.
--->
 <!DOCTYPE html>
-<html lang="en" style="height: 100%">
+<html lang="pt-BR" style="height: 100%">
 <head>
   <meta charset="utf-8">
+  <title>Gráfico de Chuva</title>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head>
 <body style="height: 100%; margin: 0">
   <div id="container" style="height: 100%"></div>
 
-  
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
-  
-  <!-- Uncomment this line if you want to dataTool extension
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/dataTool.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use gl extension
-  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to echarts-stat extension
-  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-stat/dist/ecStat.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to echarts-graph-modularity extension
-  <script type="text/javascript" src="https://echarts.apache.org/en/js/vendors/echarts-graph-modularity/dist/echarts-graph-modularity.min.js"></script>
-  -->
-  <!-- Uncomment this line if you want to use map
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
-  -->
-  <!-- Uncomment these two lines if you want to use bmap extension
-  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
-  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/extension/bmap.min.js"></script>
-  -->
-
   <script type="text/javascript">
     var dom = document.getElementById('container');
-    var myChart = echarts.init(dom, null, {
-      renderer: 'canvas',
-      useDirtyRect: false
-    });
-    var app = {};
-    
-    var option;
+    var myChart = echarts.init(dom);
 
-    
-let data = [
-        ['2013', 280],
-        ['2014', 404,6],
-        ['2015', 386,7],
-        ['2016', 295],
-        ['2017', 211,5],
-        ['2018', 764,8],
-        ['2019', 497,9],
-        ['2020', 591,3],
-        ['2021', 388,5],
-        ['2022', 938,6],
-        ['2023', 376,6],
+    let data = [
+      ['2013', 280.0],
+      ['2014', 404.6],
+      ['2015', 386.7],
+      ['2016', 295.0],
+      ['2017', 211.5],
+      ['2018', 764.8],
+      ['2019', 497.9],
+      ['2020', 591.3],
+      ['2021', 388.5],
+      ['2022', 938.6],
+      ['2023', 376.6]
+    ];
+
+    let option = {
+      title: {
+        text: 'Volume de Chuva Acumulada na Fazenda Carnaúba por Ano',
+        left: 'center',
+        textStyle: {
+          color: '#555',
+          fontSize: 18
+        }
+      },
+      tooltip: {
+        trigger: 'axis',
+        formatter: function (params) {
+          let dataPoint = params[0]; 
+          return `${dataPoint.axisValue}: <b>${dataPoint.data} mm</b>`; 
+        },
+        backgroundColor: 'rgba(50, 50, 50, 0.7)',
+        textStyle: {
+          color: '#fff'
+        }
+      },
+      xAxis: {
+        type: 'category', 
+        data: data.map(item => item[0]),
+        axisLine: {
+          lineStyle: {
+            color: '#777'
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLine: {
+          lineStyle: {
+            color: '#555'
+          }
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dashed',
+            color: '#ddd'
+          }
+        }
+      },
+      grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '15%',
+        containLabel: true
+      },
+      dataZoom: [
+        {
+          type: 'slider', 
+          start: 0, 
+          end: 100
+        },
+        {
+          type: 'inside' 
+        }
+      ],
+      series: [
+        {
+          name: 'Volume de Chuva',
+          type: 'line',
+          data: data.map(item => item[1]),
+          smooth: true, 
+          lineStyle: {
+            color: '#007bff',
+            width: 2
+          },
+          itemStyle: {
+            color: '#007bff'
+          },
+          markPoint: {
+            data: [
+              { type: 'max', name: 'Máximo', itemStyle: { color: 'red' }, symbolSize: 70 },
+              { type: 'min', name: 'Mínimo', itemStyle: { color: 'blue' }, symbolSize: 70 }
+            ],
+            label: {
+              fontSize: 14,
+              fontWeight: 'bold'
+            }
+          }
+
+        }
       ]
-option = {
-  title: {
-    text: 'Volume de chuva acumulada na Fazenda Carnaúba por ano'
-  },
-  tooltip: {
-    trigger: 'axis',
-    formatter: function (params) {
-      params = params[0];
-      return (
-        params.value[1] +
-        " mm"
-      );
-    },
-    axisPointer: {
-      animation: false
-    }
-  },
-  
-  xAxis: {
-    type: 'time',
-    splitLine: {
-      show: false
-    }
-  },
-  yAxis: {
-    type: 'value',
-    boundaryGap: [0, '0%'],
-    splitLine: {
-      show: false
-    }
-  },
-  series: [
-    {
-      name: 'Fake Data',
-      type: 'line',
-      showSymbol: false,
-      data: data
-    }
-  ]
-};
-setInterval(function () {
-  for (var i = 0; i < 5; i++) {
-    data.shift();
-    data.push(randomData());
-  }
-  myChart.setOption({
-    series: [
-      {
-        data: data
-      }
-    ]
-  });
-}, 1000);
+    };
 
-    if (option && typeof option === 'object') {
-      myChart.setOption(option);
-    }
-
-    window.addEventListener('resize', myChart.resize);
+    myChart.setOption(option);
   </script>
 </body>
 </html>
